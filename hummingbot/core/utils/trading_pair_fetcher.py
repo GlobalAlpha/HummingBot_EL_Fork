@@ -18,6 +18,7 @@ RADAR_RELAY_ENDPOINT = "https://api.radarrelay.com/v2/markets"
 BAMBOO_RELAY_ENDPOINT = "https://rest.bamboorelay.com/main/0x/markets"
 COINBASE_PRO_ENDPOINT = "https://api.pro.coinbase.com/products/"
 HUOBI_ENDPOINT = "https://api.huobi.pro/v1/common/symbols"
+HUOBI_JAPAN_ENDPOINT = "https://api-cloud.huobi.co.jp/v1/common/symbols"
 LIQUID_ENDPOINT = "https://api.liquid.com/products"
 BITTREX_ENDPOINT = "https://api.bittrex.com/v3/markets"
 KUCOIN_ENDPOINT = "https://api.kucoin.com/api/v1/symbols"
@@ -201,6 +202,34 @@ class TradingPairFetcher:
 
         return []
 
+    async def fetch_huobi_japan_trading_pairs(self) -> List[str]:
+        try:
+            from hummingbot.market.huobi_japan.huobi_japan_market import HuobiJapanMarket
+
+            client: aiohttp.ClientSession = self.http_client()
+            async with client.get(HUOBI_JAPAN_ENDPOINT, timeout=API_CALL_TIMEOUT) as response:
+                if response.status == 200:
+                    all_trading_pairs: Dict[str, Any] = await response.json()
+                    valid_trading_pairs: list = []
+                    for item in all_trading_pairs["data"]:
+                        if item["state"] == "online":
+                            valid_trading_pairs.append(item["symbol"])
+                    trading_pair_list: List[str] = []
+                    for raw_trading_pair in valid_trading_pairs:
+                        converted_trading_pair: Optional[str] = \
+                            HuobiJapanMarket.convert_from_exchange_trading_pair(raw_trading_pair)
+                        if converted_trading_pair is not None:
+                            trading_pair_list.append(converted_trading_pair)
+                        else:
+                            self.logger().debug(f"Could not parse the trading pair {raw_trading_pair}, skipping it...")
+                    return trading_pair_list
+
+        except Exception:
+            # Do nothing if the request fails -- there will be no autocomplete for huobi trading pairs
+            pass
+
+        return []
+
     @staticmethod
     async def fetch_liquid_trading_pairs() -> List[str]:
         try:
@@ -306,6 +335,7 @@ class TradingPairFetcher:
                  self.fetch_coinbase_pro_trading_pairs(),
                  self.fetch_dolomite_trading_pairs(),
                  self.fetch_huobi_trading_pairs(),
+                 self.fetch_huobi_japan_trading_pairs(),
                  self.fetch_liquid_trading_pairs(),
                  self.fetch_bittrex_trading_pairs(),
                  self.fetch_kucoin_trading_pairs(),
@@ -325,6 +355,7 @@ class TradingPairFetcher:
             "liquid": results[5],
             "bittrex": results[6],
             "kucoin": results[7],
-            "bitcoin_com": results[8]
+            "bitcoin_com": results[8],
+            "huobi_japan": result[9],
         }
         self.ready = True

@@ -145,6 +145,16 @@ global_config_map = {
                   prompt="Enter your Huobi secret key >>> ",
                   required_if=using_exchange("huobi"),
                   is_secure=True),
+    "huobi_japan_api_key":
+        ConfigVar(key="huobi_japan_api_key",
+                  prompt="Enter your Huobi Japan API key >>> ",
+                  required_if=using_exchange("huobi_japan"),
+                  is_secure=True),
+    "huobi_japan_secret_key":
+        ConfigVar(key="huobi_japan_secret_key",
+                  prompt="Enter your Huobi Japan secret key >>> ",
+                  required_if=using_exchange("huobi_japan"),
+                  is_secure=True),
     "liquid_api_key":
         ConfigVar(key="liquid_api_key",
                   prompt="Enter your Liquid API key >>> ",

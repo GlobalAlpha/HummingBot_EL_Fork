@@ -55,6 +55,7 @@ MARKET_CLASSES = {
     "binance": BinanceMarket,
     "coinbase_pro": CoinbaseProMarket,
     "huobi": HuobiMarket,
+    "huobi_japan": HuobiJapanMarket,
     "liquid": LiquidMarket,
     "radar_relay": RadarRelayMarket,
     "dolomite": DolomiteMarket,
@@ -281,6 +282,16 @@ class HummingbotApplication(*commands):
                                      order_book_tracker_data_source_type=OrderBookTrackerDataSourceType.EXCHANGE_API,
                                      trading_pairs=trading_pairs,
                                      trading_required=self._trading_required)
+            ############
+            elif market_name == "huobi_japan":
+                huobi_api_key = global_config_map.get("huobi_japan_api_key").value
+                huobi_secret_key = global_config_map.get("huobi_japan_secret_key").value
+                market = HuobiJapanMarket(huobi_japan_api_key,
+                                     huobi_japan_secret_key,
+                                     order_book_tracker_data_source_type=OrderBookTrackerDataSourceType.EXCHANGE_API,
+                                     trading_pairs=trading_pairs,
+                                     trading_required=self._trading_required)
+            #############
             elif market_name == "liquid":
                 liquid_api_key = global_config_map.get("liquid_api_key").value
                 liquid_secret_key = global_config_map.get("liquid_secret_key").value
