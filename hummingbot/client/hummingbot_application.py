@@ -18,6 +18,7 @@ from hummingbot.market.bittrex.bittrex_market import BittrexMarket
 from hummingbot.market.kucoin.kucoin_market import KucoinMarket
 from hummingbot.market.coinbase_pro.coinbase_pro_market import CoinbaseProMarket
 from hummingbot.market.huobi.huobi_market import HuobiMarket
+from hummingbot.market.huobi_japan.huobi_japan_market import HuobiJapanMarket
 from hummingbot.market.liquid.liquid_market import LiquidMarket
 from hummingbot.market.market_base import MarketBase
 from hummingbot.market.paper_trade import create_paper_trade_market
@@ -282,16 +283,14 @@ class HummingbotApplication(*commands):
                                      order_book_tracker_data_source_type=OrderBookTrackerDataSourceType.EXCHANGE_API,
                                      trading_pairs=trading_pairs,
                                      trading_required=self._trading_required)
-            ############
             elif market_name == "huobi_japan":
-                huobi_api_key = global_config_map.get("huobi_japan_api_key").value
-                huobi_secret_key = global_config_map.get("huobi_japan_secret_key").value
+                huobi_japan_api_key = global_config_map.get("huobi_japan_api_key").value
+                huobi_japan_secret_key = global_config_map.get("huobi_japan_secret_key").value
                 market = HuobiJapanMarket(huobi_japan_api_key,
-                                     huobi_japan_secret_key,
-                                     order_book_tracker_data_source_type=OrderBookTrackerDataSourceType.EXCHANGE_API,
-                                     trading_pairs=trading_pairs,
-                                     trading_required=self._trading_required)
-            #############
+                                          huobi_japan_secret_key,
+                                          order_book_tracker_data_source_type=OrderBookTrackerDataSourceType.EXCHANGE_API,
+                                          trading_pairs=trading_pairs,
+                                          trading_required=self._trading_required)
             elif market_name == "liquid":
                 liquid_api_key = global_config_map.get("liquid_api_key").value
                 liquid_secret_key = global_config_map.get("liquid_secret_key").value

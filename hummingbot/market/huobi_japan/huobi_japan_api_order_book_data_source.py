@@ -24,14 +24,14 @@ from hummingbot.core.data_type.order_book_tracker_entry import OrderBookTrackerE
 from hummingbot.core.utils import async_ttl_cache
 from hummingbot.core.utils.async_utils import safe_gather
 from hummingbot.logger import HummingbotLogger
-#updated packagename and class name
+# updated packagename and class name
 from hummingbot.market.huobi_japan.huobi_japan_order_book import HuobiJapanOrderBook
 
-#updated URLs
+# updated URLs
 HUOBI_JAPAN_SYMBOLS_URL = "https://api-cloud.huobi.co.jp/v1/common/symbols"
 HUOBI_JAPAN_TICKER_URL = "https://api-cloud.huobi.co.jp/market/tickers"
 HUOBI_JAPAN_DEPTH_URL = "https://api-cloud.huobi.co.jp/market/depth"
-HUOBI_JAPAN_WS_URI = "wss://api-cloud.huobi.co.jp/retail/ws"
+HUOBI_JAPAN_WS_URI = "wss://api-cloud.huobi.co.jp/ws"
 
 
 class HuobiJapanAPIOrderBookDataSource(OrderBookTrackerDataSource):
@@ -124,6 +124,7 @@ class HuobiJapanAPIOrderBookDataSource(OrderBookTrackerDataSource):
             data: Dict[str, Any] = json.loads(api_data)
             return data
 
+    # #########orderbooktrackerentry to check Content
     async def get_tracking_pairs(self) -> Dict[str, OrderBookTrackerEntry]:
         # Get the currently active markets
         async with aiohttp.ClientSession() as client:
@@ -177,6 +178,7 @@ class HuobiJapanAPIOrderBookDataSource(OrderBookTrackerDataSource):
             try:
                 trading_pairs: List[str] = await self.get_trading_pairs()
                 async with websockets.connect(HUOBI_JAPAN_WS_URI) as ws:
+
                     ws: websockets.WebSocketClientProtocol = ws
                     for trading_pair in trading_pairs:
                         subscribe_request: Dict[str, Any] = {

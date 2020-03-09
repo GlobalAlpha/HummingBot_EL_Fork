@@ -5,6 +5,8 @@ from hummingbot.market.binance.binance_order_book_tracker import BinanceOrderBoo
 from hummingbot.market.coinbase_pro.coinbase_pro_order_book_tracker import CoinbaseProOrderBookTracker
 from hummingbot.market.huobi.huobi_market import HuobiMarket
 from hummingbot.market.huobi.huobi_order_book_tracker import HuobiOrderBookTracker
+from hummingbot.market.huobi_japan.huobi_japan_market import HuobiJapanMarket
+from hummingbot.market.huobi_japan.huobi_japan_order_book_tracker import HuobiJapanOrderBookTracker
 from hummingbot.market.paper_trade.market_config import MarketConfig
 from hummingbot.market.paper_trade.paper_trade_market import PaperTradeMarket
 from hummingbot.market.radar_relay.radar_relay_market import RadarRelayMarket
@@ -27,6 +29,7 @@ ORDER_BOOK_TRACKER_CLASS = {
     "bamboo_relay": BambooRelayOrderBookTracker,
     "radar_relay": RadarRelayOrderBookTracker,
     "huobi": HuobiOrderBookTracker,
+    "huobi_japan": HuobiJapanOrderBookTracker,
     "bittrex": BittrexOrderBookTracker,
     "dolomite": DolomiteOrderBookTracker,
     "bitcoin_com": BitcoinComOrderBookTracker,
@@ -41,6 +44,7 @@ MARKET_CLASSES = {
     "bamboo_relay": BambooRelayMarket,
     "radar_relay": RadarRelayMarket,
     "huobi": HuobiMarket,
+    "huobi_japan": HuobiJapanMarket,
     "bittrex": BittrexMarket,
     "dolomite": DolomiteMarket,
     "bitcoin_com": BitcoinComMarket,
