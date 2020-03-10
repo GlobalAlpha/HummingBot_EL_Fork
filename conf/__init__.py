@@ -52,8 +52,8 @@ huobi_api_key = os.getenv("HUOBI_API_KEY")
 huobi_secret_key = os.getenv("HUOBI_SECRET_KEY")
 
 # Huobi Japan Tests
-huobi_api_key = os.getenv("HUOBI_JAPAN_API_KEY")
-huobi_secret_key = os.getenv("HUOBI_JAPAN_SECRET_KEY")
+huobi_japan_api_key = os.getenv("HUOBI_JAPAN_API_KEY")
+huobi_japan_secret_key = os.getenv("HUOBI_JAPAN_SECRET_KEY")
 
 # Dolomite Tests
 dolomite_test_web3_private_key = os.getenv("DOLOMITE_TEST_PK")

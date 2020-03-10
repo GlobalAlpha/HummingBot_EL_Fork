@@ -1,7 +1,7 @@
 from aiohttp import web
 
 
-class HuobiMockAPI:
+class HuobiJapanMockAPI:
     MOCK_HUOBI_USER_ID = 10000000
     MOCK_HUOBI_LIMIT_BUY_ORDER_ID = 11111
     MOCK_HUOBI_LIMIT_SELL_ORDER_ID = 22222
@@ -13,7 +13,7 @@ class HuobiMockAPI:
         "status": "ok",
         "data": {
             "id": MOCK_HUOBI_LIMIT_BUY_ORDER_ID,
-            "symbol": "ethusdt",
+            "symbol": "ethjpy",
             "account-id": 10055506,
             "amount": "0.020000000000000000",
             "price": "189.770000000000000000",
@@ -33,7 +33,7 @@ class HuobiMockAPI:
         "status": "ok",
         "data": {
             "id": MOCK_HUOBI_LIMIT_SELL_ORDER_ID,
-            "symbol": "ethusdt",
+            "symbol": "ethjpy",
             "account-id": 10055506,
             "amount": "0.020000000000000000",
             "price": "189.770000000000000000",
@@ -53,7 +53,7 @@ class HuobiMockAPI:
         "status": "ok",
         "data": {
             "id": MOCK_HUOBI_LIMIT_BUY_ORDER_ID,
-            "symbol": "ethusdt",
+            "symbol": "ethjpy",
             "account-id": 10055506,
             "amount": "3.580000000000000000",
             "price": "0.0",
@@ -72,7 +72,7 @@ class HuobiMockAPI:
         "status": "ok",
         "data": {
             "id": MOCK_HUOBI_MARKET_SELL_ORDER_ID,
-            "symbol": "ethusdt",
+            "symbol": "ethjpy",
             "account-id": 10055506,
             "amount": "0.020000000000000000",
             "price": "0.0",
@@ -92,7 +92,7 @@ class HuobiMockAPI:
         "status": "ok",
         "data": {
             "id": MOCK_HUOBI_LIMIT_CANCEL_ORDER_ID,
-            "symbol": "ethusdt",
+            "symbol": "ethjpy",
             "account-id": 10055506,
             "amount": "0.020000000000000000",
             "price": "162.670000000000000000",
@@ -111,7 +111,7 @@ class HuobiMockAPI:
         "status": "ok",
         "data": {
             "id": MOCK_HUOBI_LIMIT_OPEN_ORDER_ID,
-            "symbol": "ethusdt",
+            "symbol": "ethjpy",
             "account-id": 10055506,
             "amount": "0.040000000000000000",
             "price": "162.670000000000000000",
@@ -141,7 +141,7 @@ class HuobiMockAPI:
 
     async def get_mock_snapshot(self, _):
         return web.json_response({
-            "ch": "market.ethusdt.depth.step0",
+            "ch": "market.ethjpy.depth.step0",
             "ts": 1570486543309,
             "tick": {
                 "bids": [
@@ -198,7 +198,7 @@ class HuobiMockAPI:
             "status": "ok",
             "ts": 1570060262253,
             "data": [{
-                "symbol": "ethusdt",
+                "symbol": "ethjpy",
                 "open": 175.57,
                 "high": 181,
                 "low": 175,
@@ -232,11 +232,11 @@ class HuobiMockAPI:
             "data": [
                 {
                     "base-currency": "eth",
-                    "quote-currency": "usdt",
+                    "quote-currency": "jpy",
                     "price-precision": 2,
                     "amount-precision": 4,
                     "symbol-partition": "main",
-                    "symbol": "ethusdt",
+                    "symbol": "ethjpy",
                     "state": "online",
                     "value-precision": 8,
                     "min-order-amt": 0.001,
