@@ -1,7 +1,7 @@
 from aiohttp import web
 
 
-class HuobiMockAPI:
+class HuobiJapanMockAPI:
     MOCK_HUOBI_USER_ID = 10000000
     MOCK_HUOBI_LIMIT_BUY_ORDER_ID = 11111
     MOCK_HUOBI_LIMIT_SELL_ORDER_ID = 22222

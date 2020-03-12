@@ -2,7 +2,7 @@ class FixtureHuobiJapan:
     GET_ACCOUNTS = {"status": "ok", "data": [{"id": 11899168, "type": "spot", "subtype": "", "state": "working"}]}
 
     GET_BALANCES = {"status": "ok", "data": {"id": 11899168, "type": "spot", "state": "working",
-                                             "list": [{"currency": "lun", "type": "trade", "balance": "0"},
+                                             "list": [{"currency": "jpy", "type": "trade", "balance": "10000"},
                                                       {"currency": "husd", "type": "trade", "balance": "0.0146"},
                                                       {"currency": "eth", "type": "trade", "balance": "0.226546"}
                                                       ]}}
@@ -12,7 +12,7 @@ class FixtureHuobiJapan:
     ORDER_GET_LIMIT_BUY_FILLED = {"status": "ok",
                                   "data": {"id": 69092298194, "symbol": "ethjpy", "account-id": 11899168,
                                            "client-order-id": "buy-ethjpy-1581561936007620",
-                                           "amount": "0.040000000000000000", "price": "286.850000000000000000",
+                                           "amount": "0.040000000000000000", "price": "28600.850000000000000000",
                                            "created-at": 1581561936082, "type": "buy-limit",
                                            "field-amount": "0.040000000000000000",
                                            "field-cash-amount": "5.464200000000000000",
@@ -23,7 +23,7 @@ class FixtureHuobiJapan:
                                    "data": {"id": 69094165877, "symbol": "ethjpy", "account-id": 11899168,
                                             "client-order-id": "sell-ethjpy-1581562860006536",
                                             "amount": "0.040000000000000000",
-                                            "price": "259.110000000000000000", "created-at": 1581562860124,
+                                            "price": "25900.110000000000000000", "created-at": 1581562860124,
                                             "type": "sell-limit", "field-amount": "0.040000000000000000",
                                             "field-cash-amount": "5.455400000000000000",
                                             "field-fees": "0.010910800000000000", "finished-at": 1581562860240,
@@ -34,7 +34,7 @@ class FixtureHuobiJapan:
                                                      "amount": "5.460000000000000000", "price": "0.0",
                                                      "created-at": 1581563124085, "type": "buy-market",
                                                      "field-amount": "0.040015396458814472",
-                                                     "field-cash-amount": "5.459999999999999816",
+                                                     "field-cash-amount": "500.459999999999999816",
                                                      "field-fees": "0.000040030792917629", "finished-at": 1581563124185,
                                                      "source": "spot-api", "state": "filled", "canceled-at": 0}}
 
@@ -43,7 +43,7 @@ class FixtureHuobiJapan:
                                                       "amount": "0.040000000000000000", "price": "0.0",
                                                       "created-at": 1581563456081, "type": "sell-market",
                                                       "field-amount": "0.040000000000000000",
-                                                      "field-cash-amount": "5.459200000000000000",
+                                                      "field-cash-amount": "500.459200000000000000",
                                                       "field-fees": "0.010918400000000000",
                                                       "finished-at": 1581563456183, "source": "spot-api",
                                                       "state": "filled", "canceled-at": 0}}
@@ -51,7 +51,7 @@ class FixtureHuobiJapan:
     ORDER_GET_LIMIT_BUY_UNFILLED = {"status": "ok",
                                     "data": {"id": 69095996284, "symbol": "ethjpy", "account-id": 11899168,
                                              "client-order-id": "buy-ethjpy-1581563740035369",
-                                             "amount": "0.040000000000000000", "price": "244.640000000000000000",
+                                             "amount": "0.040000000000000000", "price": "24400.640000000000000000",
                                              "created-at": 1581563742607, "type": "buy-limit", "field-amount": "0.0",
                                              "field-cash-amount": "0.0", "field-fees": "0.0", "finished-at": 0,
                                              "source": "spot-api", "state": "submitted", "canceled-at": 0}}
@@ -59,14 +59,14 @@ class FixtureHuobiJapan:
     ORDER_GET_LIMIT_SELL_UNFILLED = {"status": "ok",
                                      "data": {"id": 69095996284, "symbol": "ethjpy", "account-id": 11899168,
                                               "client-order-id": "buy-ethjpy-1581563740035369",
-                                              "amount": "0.040000000000000000", "price": "244.640000000000000000",
+                                              "amount": "0.040000000000000000", "price": "24400.640000000000000000",
                                               "created-at": 1581563742607, "type": "sell-limit", "field-amount": "0.0",
                                               "field-cash-amount": "0.0", "field-fees": "0.0", "finished-at": 0,
                                               "source": "spot-api", "state": "submitted", "canceled-at": 0}}
 
     ORDER_GET_CANCELED = {"status": "ok", "data": {"id": 69095996284, "symbol": "ethjpy", "account-id": 11899168,
                                                    "client-order-id": "buy-ethjpy-1581563740035369",
-                                                   "amount": "0.040000000000000000", "price": "244.640000000000000000",
+                                                   "amount": "0.040000000000000000", "price": "24400.640000000000000000",
                                                    "created-at": 1581563742607, "type": "buy-limit",
                                                    "field-amount": "0.0", "field-cash-amount": "0.0",
                                                    "field-fees": "0.0", "finished-at": 1581563762817,
