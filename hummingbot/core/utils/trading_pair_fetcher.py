@@ -335,11 +335,11 @@ class TradingPairFetcher:
                  self.fetch_coinbase_pro_trading_pairs(),
                  self.fetch_dolomite_trading_pairs(),
                  self.fetch_huobi_trading_pairs(),
-                 self.fetch_huobi_japan_trading_pairs(),
                  self.fetch_liquid_trading_pairs(),
                  self.fetch_bittrex_trading_pairs(),
                  self.fetch_kucoin_trading_pairs(),
-                 self.fetch_bitcoin_com_trading_pairs()]
+                 self.fetch_bitcoin_com_trading_pairs(),
+                 self.fetch_huobi_japan_trading_pairs()]
 
         # Radar Relay has not yet been migrated to a new version
         # Endpoint needs to be updated after migration
@@ -356,6 +356,6 @@ class TradingPairFetcher:
             "bittrex": results[6],
             "kucoin": results[7],
             "bitcoin_com": results[8],
-            "huobi_japan": result[9],
+            "huobi_japan": results[9],
         }
         self.ready = True

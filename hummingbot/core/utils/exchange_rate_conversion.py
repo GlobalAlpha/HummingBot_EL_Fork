@@ -193,6 +193,8 @@ class ExchangeRateConversion:
         if not self._started:
             self.start()
         exchange_rate = self.get_exchange_rate(source)
+        print("source")
+        print(source)
         from_currency = from_currency.upper()
         to_currency = to_currency.upper()
         # assume WETH and ETH are equal value
@@ -201,6 +203,8 @@ class ExchangeRateConversion:
             return amount
         from_currency_usd_rate = exchange_rate.get(from_currency.upper(), NaN)
         to_currency_usd_rate = exchange_rate.get(to_currency.upper(), NaN)
+        print(from_currency_usd_rate)
+        print(to_currency_usd_rate)
         if math.isnan(from_currency_usd_rate) or math.isnan(to_currency_usd_rate):
             raise ValueError(f"Unable to convert '{from_currency}' to '{to_currency}'. Aborting.")
         return amount * from_currency_usd_rate / to_currency_usd_rate

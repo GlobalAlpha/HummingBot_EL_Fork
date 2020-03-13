@@ -353,7 +353,8 @@ cdef class CrossExchangeMarketMakingStrategy(StrategyBase):
                 is_buy,
                 active_order.quantity
             )
-
+            print("current_hedging_price")
+            print(current_hedging_price)
             # See if it's still profitable to keep the order on maker market. If not, remove it.
             if not self.c_check_if_still_profitable(market_pair, active_order, current_hedging_price):
                 continue
@@ -863,6 +864,12 @@ cdef class CrossExchangeMarketMakingStrategy(StrategyBase):
             str taker_trading_pair = market_pair.taker.trading_pair
             MarketBase taker_market = market_pair.taker.market
         # Calculate the next price from the top, and the order size limit.
+        print("taker_trading_pair")
+        print(taker_trading_pair)
+        print("market_pair.maker.quote_asset")
+        print(market_pair.maker.quote_asset)
+        print("market_pair.taker.quote_asset")
+        print(market_pair.taker.quote_asset)
         if is_bid:
             try:
                 taker_price = taker_market.c_get_vwap_for_volume(taker_trading_pair, False, size).result_price
@@ -871,6 +878,8 @@ cdef class CrossExchangeMarketMakingStrategy(StrategyBase):
 
             # If quote assets are not same, convert them from taker's quote asset to maker's quote asset
             if market_pair.maker.quote_asset != market_pair.taker.quote_asset:
+                print("conversion rate")
+                print(self._exchange_rate_conversion.convert_token_value_decimal(1, market_pair.taker.quote_asset, market_pair.maker.quote_asset))
                 taker_price *= self._exchange_rate_conversion.convert_token_value_decimal(1,
                                                                                           market_pair.taker.quote_asset,
                                                                                           market_pair.maker.quote_asset)
@@ -883,6 +892,8 @@ cdef class CrossExchangeMarketMakingStrategy(StrategyBase):
                 return None
 
             if market_pair.maker.quote_asset != market_pair.taker.quote_asset:
+                print("conversion rate")
+                print(self._exchange_rate_conversion.convert_token_value_decimal(1, market_pair.taker.quote_asset, market_pair.maker.quote_asset))
                 taker_price *= self._exchange_rate_conversion.convert_token_value_decimal(1,
                                                                                           market_pair.taker.quote_asset,
                                                                                           market_pair.maker.quote_asset)
@@ -1146,6 +1157,10 @@ cdef class CrossExchangeMarketMakingStrategy(StrategyBase):
                     effective_hedging_price_adjusted = self._exchange_rate_conversion.adjust_token_rate(
                         market_pair.maker.quote_asset, effective_hedging_price
                     )
+                    print("effective_hedging_price_adjusted")
+                    print(effective_hedging_price_adjusted)
+                    print("effective_hedging_price")
+                    print(effective_hedging_price)
                     if self._logging_options & self.OPTION_LOG_CREATE_ORDER:
                         self.log_with_clock(
                             logging.INFO,
