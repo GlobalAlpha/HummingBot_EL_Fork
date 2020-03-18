@@ -20,6 +20,7 @@ from hummingbot.strategy.pure_market_making import (
 from hummingbot.strategy.pure_market_making.pure_market_making_config_map import pure_market_making_config_map
 from hummingbot.market.paper_trade import create_paper_trade_market
 from hummingbot.market.market_base import MarketBase
+from hummingbot.client.hummingbot_application import MARKET_CLASSES
 
 
 def start(self):
@@ -99,9 +100,16 @@ def start(self):
             if external_price_source_type == "exchange":
                 asset_trading_pair: str = self._convert_to_exchange_trading_pair(
                     external_price_source_exchange, [external_price_source_exchange_trading_pair])[0]
+                print(asset_trading_pair)
+                print(trading_pair)
                 ext_market = create_paper_trade_market(external_price_source_exchange, [asset_trading_pair])
                 self.markets[external_price_source_exchange]: MarketBase = ext_market
-                asset_price_delegate = OrderBookAssetPriceDelegate(ext_market, asset_trading_pair)
+                asset_base_asset, asset_quote_asset = ext_market.split_trading_pair(asset_trading_pair)
+                base_asset, quote_asset = MARKET_CLASSES[maker_market].split_trading_pair(trading_pair)
+                print("split trade pairs")
+                print(asset_quote_asset)
+                print(quote_asset)
+                asset_price_delegate = OrderBookAssetPriceDelegate(ext_market, asset_trading_pair, asset_quote_asset, quote_asset)
             elif external_price_source_type == "feed":
                 asset_price_delegate = DataFeedAssetPriceDelegate(external_price_source_feed_base_asset,
                                                                   external_price_source_feed_quote_asset)

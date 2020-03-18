@@ -779,9 +779,9 @@ cdef class CrossExchangeMarketMakingStrategy(StrategyBase):
 
             # If quote assets are not same, convert them from taker's quote asset to maker's quote asset
             if market_pair.maker.quote_asset != market_pair.taker.quote_asset:
-                taker_price *= self._exchange_rate_conversion.convert_token_value_decimal(1,
-                                                                                          market_pair.taker.quote_asset,
-                                                                                          market_pair.maker.quote_asset)
+                taker_price *= self._exchange_rate_conversion.convert_token_value_with_override(1,
+                                                                                                market_pair.taker.quote_asset,
+                                                                                                market_pair.maker.quote_asset)
 
             # you are buying on the maker market and selling on the taker market
             maker_price = taker_price / (1 + self._min_profitability)
@@ -816,9 +816,9 @@ cdef class CrossExchangeMarketMakingStrategy(StrategyBase):
                 return s_decimal_nan
 
             if market_pair.maker.quote_asset != market_pair.taker.quote_asset:
-                taker_price *= self._exchange_rate_conversion.convert_token_value_decimal(1,
-                                                                                          market_pair.taker.quote_asset,
-                                                                                          market_pair.maker.quote_asset)
+                taker_price *= self._exchange_rate_conversion.convert_token_value_with_override(1,
+                                                                                                market_pair.taker.quote_asset,
+                                                                                                market_pair.maker.quote_asset)
 
             # You are buying on the taker market and selling on the maker market
             maker_price = taker_price * (1 + self._min_profitability)
@@ -879,10 +879,10 @@ cdef class CrossExchangeMarketMakingStrategy(StrategyBase):
             # If quote assets are not same, convert them from taker's quote asset to maker's quote asset
             if market_pair.maker.quote_asset != market_pair.taker.quote_asset:
                 print("conversion rate")
-                print(self._exchange_rate_conversion.convert_token_value_decimal(1, market_pair.taker.quote_asset, market_pair.maker.quote_asset))
-                taker_price *= self._exchange_rate_conversion.convert_token_value_decimal(1,
-                                                                                          market_pair.taker.quote_asset,
-                                                                                          market_pair.maker.quote_asset)
+                print(self._exchange_rate_conversion.convert_token_value_with_override(1, market_pair.taker.quote_asset, market_pair.maker.quote_asset))
+                taker_price *= self._exchange_rate_conversion.convert_token_value_with_override(1,
+                                                                                                market_pair.taker.quote_asset,
+                                                                                                market_pair.maker.quote_asset)
 
             return taker_price
         else:
@@ -893,10 +893,10 @@ cdef class CrossExchangeMarketMakingStrategy(StrategyBase):
 
             if market_pair.maker.quote_asset != market_pair.taker.quote_asset:
                 print("conversion rate")
-                print(self._exchange_rate_conversion.convert_token_value_decimal(1, market_pair.taker.quote_asset, market_pair.maker.quote_asset))
-                taker_price *= self._exchange_rate_conversion.convert_token_value_decimal(1,
-                                                                                          market_pair.taker.quote_asset,
-                                                                                          market_pair.maker.quote_asset)
+                print(self._exchange_rate_conversion.convert_token_value_with_override(1, market_pair.taker.quote_asset, market_pair.maker.quote_asset))
+                taker_price *= self._exchange_rate_conversion.convert_token_value_with_override(1,
+                                                                                                market_pair.taker.quote_asset,
+                                                                                                market_pair.maker.quote_asset)
 
             return taker_price
 

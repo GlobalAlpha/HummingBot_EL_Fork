@@ -151,6 +151,38 @@ class ExchangeRateConversion:
         self._fetch_exchange_rate_task: Optional[asyncio.Task] = None
         self.init_config()
 
+        # New function added to enable override function with the convert token value function
+    def convert_token_value_with_override(self, amount: float, from_currency: str, to_currency: str) -> Decimal:
+        """
+        Converts a token amount to the amount of another token with equivalent worth
+        :param source:
+        :param amount:
+        :param from_currency:
+        :param to_currency:
+        :return:
+        """
+        if not self._started:
+            self.start()
+        from_currency = from_currency.upper()
+        to_currency = to_currency.upper()
+        if from_currency in self._exchange_rate_config["conversion_required"] and to_currency in self._exchange_rate_config["conversion_required"] and from_currency in self._exchange_rate and to_currency in self._exchange_rate:
+            exchange_rate = self.get_exchange_rate("config")
+        else:
+            exchange_rate = self.get_exchange_rate()
+        # assume WETH and ETH are equal value
+        if from_currency == "ETH" and to_currency == "WETH" or from_currency == "WETH" and to_currency == "ETH" or from_currency == to_currency:
+            return amount
+        from_currency_usd_rate = exchange_rate.get(from_currency.upper(), NaN)
+        to_currency_usd_rate = exchange_rate.get(to_currency.upper(), NaN)
+        print("convert_token_value_with_override")
+        print(from_currency)
+        print(to_currency)
+        print(from_currency_usd_rate)
+        print(to_currency_usd_rate)
+        if math.isnan(from_currency_usd_rate) or math.isnan(to_currency_usd_rate):
+            raise ValueError(f"Unable to convert '{from_currency}' to '{to_currency}'. Aborting.")
+        return Decimal(repr(amount * from_currency_usd_rate / to_currency_usd_rate))
+
     def adjust_token_rate(self, asset_name: str, price: Decimal) -> Decimal:
         """
         Returns the USD rate of a given token if it is found in conversion_required config
@@ -203,6 +235,8 @@ class ExchangeRateConversion:
             return amount
         from_currency_usd_rate = exchange_rate.get(from_currency.upper(), NaN)
         to_currency_usd_rate = exchange_rate.get(to_currency.upper(), NaN)
+        print(from_currency)
+        print(to_currency)
         print(from_currency_usd_rate)
         print(to_currency_usd_rate)
         if math.isnan(from_currency_usd_rate) or math.isnan(to_currency_usd_rate):

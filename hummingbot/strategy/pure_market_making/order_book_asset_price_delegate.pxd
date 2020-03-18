@@ -5,3 +5,5 @@ cdef class OrderBookAssetPriceDelegate(AssetPriceDelegate):
     cdef:
         MarketBase _market
         str _trading_pair
+        str _base_asset
+        str _quote_asset

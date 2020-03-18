@@ -64,9 +64,9 @@ from hummingbot.client.config.fee_overrides_config_map import fee_overrides_conf
 
 hm_logger = None
 s_decimal_0 = Decimal(0)
-#updated added jpy pair
+# updated added jpy pair
 TRADING_PAIR_SPLITTER = re.compile(r"^(\w+)(usdt|husd|btc|eth|ht|trx|jpy)$")
-#updated API
+# updated API
 HUOBI_JAPAN_ROOT_API = "https://api-cloud.huobi.co.jp"
 
 
@@ -160,9 +160,9 @@ cdef class HuobiJapanMarket(MarketBase):
         return f"{base_asset.upper()}-{quote_asset.upper()}"
 
     @staticmethod
-    def convert_to_exchange_trading_pair(hb_trading_pair: str) -> str:
+    def convert_to_exchange_trading_pair(hbjp_trading_pair: str) -> str:
         # Huobi uses lowercase (btcusdt)
-        return hb_trading_pair.replace("-", "").lower()
+        return hbjp_trading_pair.replace("-", "").lower()
 
     @property
     def name(self) -> str:
