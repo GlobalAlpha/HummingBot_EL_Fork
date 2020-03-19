@@ -864,12 +864,6 @@ cdef class CrossExchangeMarketMakingStrategy(StrategyBase):
             str taker_trading_pair = market_pair.taker.trading_pair
             MarketBase taker_market = market_pair.taker.market
         # Calculate the next price from the top, and the order size limit.
-        print("taker_trading_pair")
-        print(taker_trading_pair)
-        print("market_pair.maker.quote_asset")
-        print(market_pair.maker.quote_asset)
-        print("market_pair.taker.quote_asset")
-        print(market_pair.taker.quote_asset)
         if is_bid:
             try:
                 taker_price = taker_market.c_get_vwap_for_volume(taker_trading_pair, False, size).result_price
@@ -1167,8 +1161,8 @@ cdef class CrossExchangeMarketMakingStrategy(StrategyBase):
                             f"({market_pair.maker.trading_pair}) Creating limit ask order for "
                             f"{ask_size} {market_pair.maker.base_asset} at "
                             f"{ask_price} {market_pair.maker.quote_asset}. "
-                            f"Current hedging price: {effective_hedging_price} {market_pair.maker.quote_asset} "
-                            f"(Rate adjusted: {effective_hedging_price_adjusted:.2f} {market_pair.maker.quote_asset})."
+                            f"Current hedging price: {effective_hedging_price} {market_pair.taker.quote_asset} "
+                            f"(Rate adjusted: {effective_hedging_price_adjusted:.2f} {market_pair.taker.quote_asset})."
                         )
                     self.c_sell_with_specific_market(
                         market_pair,
