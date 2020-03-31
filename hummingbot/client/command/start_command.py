@@ -57,7 +57,7 @@ class StartCommand:
             return
 
         strategy_file_path = in_memory_config_map.get("strategy_file_path").value
-        init_logging("hummingbot_logs.yml",
+        init_logging("gactrading_logs.yml",
                      override_log_level=log_level.upper() if log_level else None,
                      strategy_file_path=strategy_file_path)
 

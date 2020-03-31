@@ -45,7 +45,7 @@ async def main():
     await create_yml_files()
 
     # This init_logging() call is important, to skip over the missing config warnings.
-    init_logging("hummingbot_logs.yml")
+    init_logging("gactrading_logs.yml")
 
     read_configs_from_yml()
     ExchangeRateConversion.get_instance().start()
@@ -56,7 +56,7 @@ async def main():
         dev_mode = check_dev_mode()
         if dev_mode:
             hb.app.log("Running from dev branches. Full remote logging will be enabled.")
-        init_logging("hummingbot_logs.yml",
+        init_logging("gactrading_logs.yml",
                      override_log_level=global_config_map.get("log_level").value,
                      dev_mode=dev_mode)
         tasks: List[Coroutine] = [hb.run()]

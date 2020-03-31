@@ -26,7 +26,7 @@ from hummingbot.client.settings import STRATEGIES
 from hummingbot.core.utils.wallet_setup import unlock_wallet
 from hummingbot.core.utils.async_utils import safe_gather
 from hummingbot.core.management.console import start_management_console
-from bin.hummingbot import (
+from bin.gactrading import (
     detect_available_port,
     main as normal_start,
 )
@@ -66,7 +66,7 @@ async def quick_start():
         password = args.config_password
 
         await create_yml_files()
-        init_logging("hummingbot_logs.yml")
+        init_logging("gactrading_logs.yml")
         read_configs_from_yml()
         ExchangeRateConversion.get_instance().start()
         await ExchangeRateConversion.get_instance().wait_till_ready()
@@ -98,7 +98,7 @@ async def quick_start():
                 hb.app.log("Running from dev branches. Full remote logging will be enabled.")
 
             log_level = global_config_map.get("log_level").value
-            init_logging("hummingbot_logs.yml",
+            init_logging("gactrading_logs.yml",
                          override_log_level=log_level,
                          dev_mode=dev_mode,
                          strategy_file_path=config_file_name)

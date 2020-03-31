@@ -1,7 +1,7 @@
 # Set the base image
 FROM continuumio/miniconda3:4.6.14
 
-# Dockerfile author / maintainer 
+# Dockerfile author / maintainer
 LABEL maintainer="CoinAlpha, Inc. <dev@coinalpha.com>"
 
 # Build arguments
@@ -50,4 +50,3 @@ ENV PATH /opt/conda/envs/$(head -1 setup/environment-linux.yml | cut -d' ' -f2)/
 RUN /opt/conda/envs/$(head -1 setup/environment-linux.yml | cut -d' ' -f2)/bin/python3 setup.py build_ext --inplace -j 8
 
 CMD [ "sh", "-c", "/opt/conda/envs/$(head -1 setup/environment-linux.yml | cut -d' ' -f2)/bin/python3 bin/hummingbot_quickstart.py -s ${STRATEGY} -f ${CONFIG_FILE_NAME} -w \"${WALLET}\" -p \"${CONFIG_PASSWORD}\"" ]
-

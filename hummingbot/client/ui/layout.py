@@ -29,6 +29,16 @@ from hummingbot.client.settings import (
 HEADER = """
 GLOBAL ALPHA CAPITAL
 
+        ***********                    **                    *************
+      **          **                  ****                  **           **
+     **            **                **  **                **             **
+    **                              **    **              **
+    **                             **      **            **
+     **          ******           ************            **
+      **           *             **          **            **             **
+       *************            **            **            **           **
+                   *          *****          *****           *************
+
 Enter "config" to create a bot or "help" to see a list of commands.
 """
 
