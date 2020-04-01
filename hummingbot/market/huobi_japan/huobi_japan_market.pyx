@@ -67,7 +67,7 @@ s_decimal_0 = Decimal(0)
 # updated added jpy pair
 TRADING_PAIR_SPLITTER = re.compile(r"^(\w+)(usdt|husd|btc|eth|ht|trx|jpy)$")
 # updated API
-HUOBI_JAPAN_ROOT_API = "https://api-cloud.huobi.co.jp"
+HUOBI_JAPAN_ROOT_API = "https://api-cloud.huobi.co.jp/v1/"
 
 
 class HuobiJapanAPIError(IOError):

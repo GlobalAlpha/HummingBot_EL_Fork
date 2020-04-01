@@ -122,7 +122,6 @@ cdef class OrderTracker(TimeIterator):
         """
         cdef:
             list keys_to_delete = []
-
         if order_id in self._in_flight_pending_created:  # Checks if a Buy/SellOrderCreatedEvent has been received
             return False
 
@@ -132,7 +131,6 @@ cdef class OrderTracker(TimeIterator):
                 keys_to_delete.append(k)
         for k in keys_to_delete:
             del self._in_flight_cancels[k]
-
         if order_id in self.in_flight_cancels:
             return False
 

@@ -449,7 +449,6 @@ cdef class StrategyBase(TimeIterator):
     cdef c_cancel_order(self, object market_trading_pair_tuple, str order_id):
         cdef:
             MarketBase market = market_trading_pair_tuple.market
-
         if self._sb_order_tracker.c_check_and_track_cancel(order_id):
             self.log_with_clock(
                 logging.INFO,

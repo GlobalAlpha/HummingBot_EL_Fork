@@ -80,9 +80,7 @@ class HuobiJapanMarketUnitTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        print("1")
         cls.ev_loop: asyncio.BaseEventLoop = asyncio.get_event_loop()
-        print(API_MOCK_ENABLED)
         if API_MOCK_ENABLED:
             cls.web_app = HummingWebApp.get_instance()
             cls.web_app.add_host_to_mock(API_BASE_URL, ["/v1/common/timestamp", "/v1/common/symbols",
@@ -93,13 +91,11 @@ class HuobiJapanMarketUnitTest(unittest.TestCase):
             cls._url_mock = cls._patcher.start()
             cls._url_mock.side_effect = cls.web_app.reroute_local
             mock_account_id = FixtureHuobiJapan.GET_ACCOUNTS["data"][0]["id"]
-            print(mock_account_id)
             cls.web_app.update_response("get", API_BASE_URL, "/v1/account/accounts", FixtureHuobiJapan.GET_ACCOUNTS)
             cls.web_app.update_response("get", API_BASE_URL, f"/v1/account/accounts/{mock_account_id}/balance",
                                         FixtureHuobiJapan.GET_BALANCES)
             cls._t_nonce_patcher = unittest.mock.patch("hummingbot.market.huobi_japan.huobi_japan_market.get_tracking_nonce")
             cls._t_nonce_mock = cls._t_nonce_patcher.start()
-        print('end if')
         cls.clock: Clock = Clock(ClockMode.REALTIME)
         cls.market: HuobiJapanMarket = HuobiJapanMarket(
             API_KEY,
@@ -110,14 +106,15 @@ class HuobiJapanMarketUnitTest(unittest.TestCase):
         cls.market_2: HuobiJapanMarket = HuobiJapanMarket(
             API_KEY,
             API_SECRET,
-            trading_pairs=["bchbtc"]
+            trading_pairs=["ethjpy"]
         )
+        print(API_KEY)
+        print(API_SECRET)
         cls.clock.add_iterator(cls.market)
         cls.clock.add_iterator(cls.market_2)
         cls.stack = contextlib.ExitStack()
         cls._clock = cls.stack.enter_context(cls.clock)
         cls.ev_loop.run_until_complete(cls.wait_til_ready())
-        print("setupclass")
 
     @classmethod
     def tearDownClass(cls) -> None:
@@ -132,8 +129,6 @@ class HuobiJapanMarketUnitTest(unittest.TestCase):
         while True:
             now = time.time()
             next_iteration = now // 1.0 + 1
-            print(cls.market.ready)
-            print(cls.market_2.ready)
             if cls.market.ready and cls.market_2.ready:
                 break
             else:
@@ -152,7 +147,6 @@ class HuobiJapanMarketUnitTest(unittest.TestCase):
         for event_tag in self.events:
             self.market.add_listener(event_tag, self.market_logger)
             self.market_2.add_listener(event_tag, self.market_2_logger)
-        print("setup")
 
     def tearDown(self):
         for event_tag in self.events:
@@ -174,6 +168,7 @@ class HuobiJapanMarketUnitTest(unittest.TestCase):
         return self.ev_loop.run_until_complete(self.run_parallel_async(*tasks))
 
     def test_get_fee(self):
+        print("getfee")
         limit_fee: TradeFee = self.market.get_fee("eth", "jpy", OrderType.LIMIT, TradeType.BUY, 1, 10)
         self.assertGreater(limit_fee.percent, 0)
         self.assertEqual(len(limit_fee.flat_fees), 0)
@@ -186,7 +181,7 @@ class HuobiJapanMarketUnitTest(unittest.TestCase):
 
     def test_fee_overrides_config(self):
         fee_overrides_config_map["huobi_japan_taker_fee"].value = None
-        taker_fee: TradeFee = self.market.get_fee("BTC", "ETH", OrderType.MARKET, TradeType.BUY, Decimal(1),
+        taker_fee: TradeFee = self.market.get_fee("LINK", "ETH", OrderType.MARKET, TradeType.BUY, Decimal(1),
                                                   Decimal('0.1'))
         self.assertAlmostEqual(Decimal("0.002"), taker_fee.percent)
         fee_overrides_config_map["huobi_japan_taker_fee"].value = Decimal('0.001')
@@ -203,10 +198,11 @@ class HuobiJapanMarketUnitTest(unittest.TestCase):
         self.assertAlmostEqual(Decimal("0.005"), maker_fee.percent)
 
     def place_order(self, is_buy, trading_pair, amount, order_type, price, nonce, get_resp, market_connector=None):
+        print("place order")
         global EXCHANGE_ORDER_ID
         order_id, exch_order_id = None, None
         if API_MOCK_ENABLED:
-            exch_order_id = f"HUOBI_{EXCHANGE_ORDER_ID}"
+            exch_order_id = f"HUOBIJAPAN_{EXCHANGE_ORDER_ID}"
             EXCHANGE_ORDER_ID += 1
             self._t_nonce_mock.return_value = nonce
             resp = FixtureHuobiJapan.ORDER_PLACE.copy()
@@ -449,8 +445,8 @@ class HuobiJapanMarketUnitTest(unittest.TestCase):
             for event_tag in self.events:
                 self.market.remove_listener(event_tag, self.market_logger)
             self.market: HuobiJapanMarket = HuobiJapanMarket(
-                huobi_api_key=API_KEY,
-                huobi_secret_key=API_SECRET,
+                huobi_japan_api_key=API_KEY,
+                huobi_japan_secret_key=API_SECRET,
                 trading_pairs=["ethjpy", "btcjpy"]
             )
             for event_tag in self.events:

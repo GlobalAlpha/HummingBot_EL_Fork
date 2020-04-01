@@ -9,7 +9,7 @@ from typing import (
 from urllib.parse import urlencode
 from collections import OrderedDict
 
-HUOBI_JAPAN_HOST_NAME = "https://api-cloud.huobi.co.jp"
+HUOBI_JAPAN_HOST_NAME = "api-cloud.huobi.co.jp"
 
 
 class HuobiJapanAuth:
@@ -25,7 +25,7 @@ class HuobiJapanAuth:
     def add_auth_to_params(self,
                            method: str,
                            path_url: str,
-                           args: Dict[str, Any]=None) -> Dict[str, Any]:
+                           args: Dict[str, Any] = None) -> Dict[str, Any]:
         timestamp: str = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S")
         request = {
             "AccessKeyId": self.api_key,

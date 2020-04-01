@@ -1018,6 +1018,9 @@ cdef class CrossExchangeMarketMakingStrategy(StrategyBase):
                     f"{order_price:.8g} {market_pair.maker.quote_asset} is no longer profitable. "
                     f"Removing the order."
                 )
+                print("CC cancellllllllllllll")
+                print(active_order.client_order_id)
+                print(market_pair)
             self.c_cancel_order(market_pair, active_order.client_order_id)
             return False
 
@@ -1031,6 +1034,9 @@ cdef class CrossExchangeMarketMakingStrategy(StrategyBase):
                     f"{order_price:.8g} {market_pair.maker.quote_asset} is no longer profitable. "
                     f"Removing the order."
                 )
+                print("CC cancellllllllllllll")
+                print(active_order.client_order_id)
+                print(market_pair)
             self.c_cancel_order(market_pair, active_order.client_order_id)
             return False
         return True
@@ -1232,6 +1238,8 @@ cdef class CrossExchangeMarketMakingStrategy(StrategyBase):
 
     cdef c_cancel_order(self, object market_pair, str order_id):
         market_trading_pair_tuple = self._sb_order_tracker.c_get_market_pair_from_order_id(order_id)
+        print("c_cancel_order")
+        print(market_trading_pair_tuple)
         StrategyBase.c_cancel_order(self, market_trading_pair_tuple, order_id)
     # ----------------------------------------------------------------------------------------------------------
     # </editor-fold>
